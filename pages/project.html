@@ -1,1 +1,910 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler — gzhno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assests/css/style.css">
+    <style>
+:root{--bg:#0a0a0f;--bg-card:#11111a;--bg-card-hover:#161622;--border:#1e1e2e;--border-glow:#00ffc840;--text:#e0e0e8;--text-dim:#6e6e82;--accent:#00ffc8;--accent-dim:#00ffc830;--red:#ff4d6a;--amber:#ffb347;--blue:#4da6ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.7;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.12;pointer-events:none;z-index:0}
+.container{max-width:1200px;margin:0 auto;padding:0 40px;position:relative;z-index:1}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue));z-index:10000;width:0}
+nav{padding:20px 40px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9999;backdrop-filter:blur(12px);background:rgba(10,10,15,.9)}
+.logo{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:-.5px;text-decoration:none}
+.logo span{color:var(--text-dim);font-weight:300}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+section{padding:70px 0}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+.section-number{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--accent);opacity:.6}
+.section-title{font-size:1.8rem;font-weight:600;letter-spacing:-.5px}
+.section-line{flex:1;height:1px;background:var(--border)}
+footer{padding:48px 0;border-top:1px solid var(--border);margin-top:60px;text-align:center}
+footer p{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{50%{opacity:0}}
+.fade-in{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
 
+/* ═══════ SIPAHI HERO ═══════ */
+.sipahi-hero{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:40px;margin-bottom:32px;position:relative;overflow:hidden}
+.sipahi-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:400px;height:400px;background:radial-gradient(circle,var(--accent-dim) 0%,transparent 70%);pointer-events:none}
+.sipahi-name{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;margin-bottom:4px;position:relative}
+.sipahi-subtitle{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;position:relative}
+.sipahi-desc{color:var(--text-dim);font-size:1rem;max-width:600px;line-height:1.9;position:relative}
+.sipahi-principles{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;position:relative}
+.principle{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:6px 14px;border-radius:6px;font-weight:500;letter-spacing:.5px;transition:all .3s;cursor:default}
+.principle:hover{transform:translateY(-2px)}
+.p-red{background:#ff4d6a12;color:var(--red);border:1px solid #ff4d6a25}
+.p-amber{background:#ffb34712;color:var(--amber);border:1px solid #ffb34725}
+.p-green{background:#00ffc812;color:var(--accent);border:1px solid #00ffc825}
+.p-blue{background:#4da6ff12;color:var(--blue);border:1px solid #4da6ff25}
+
+/* ═══════ INTERACTIVE TABS ═══════ */
+.tabs{display:flex;gap:4px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px}
+.tab{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);cursor:pointer;transition:all .3s;white-space:nowrap;letter-spacing:.5px}
+.tab:hover{border-color:var(--accent);color:var(--accent)}
+.tab.active{background:var(--accent);color:var(--bg);border-color:var(--accent);box-shadow:0 0 20px var(--accent-dim)}
+.tab-panel{display:none;animation:fadeUp .4s ease}
+.tab-panel.active{display:block}
+
+/* ═══════ ARCH LAYER CARD ═══════ */
+.arch-layer{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.arch-layer::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.arch-layer:hover{background:var(--bg-card-hover);border-color:var(--border-glow)}
+.arch-layer:hover::after{transform:scaleX(1)}
+.layer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.layer-name{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:600}
+.layer-id{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:3px 10px;border-radius:12px;font-weight:600;letter-spacing:1px}
+.lid-0{background:#6e6e8215;color:var(--text-dim);border:1px solid #6e6e8230}
+.lid-1{background:#ff4d6a15;color:var(--red);border:1px solid #ff4d6a30}
+.lid-2{background:#ffb34715;color:var(--amber);border:1px solid #ffb34730}
+.lid-3{background:#4da6ff15;color:var(--blue);border:1px solid #4da6ff30}
+.layer-desc{color:var(--text-dim);font-size:.9rem;margin-bottom:16px;line-height:1.8}
+.layer-features{display:flex;flex-wrap:wrap;gap:8px}
+.layer-feat{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-dim);background:#ffffff06;padding:4px 12px;border-radius:6px;transition:all .3s;cursor:default}
+.layer-feat:hover{background:var(--accent-dim);color:var(--accent)}
+.arch-connector{display:flex;justify-content:center;padding:4px 0;color:var(--text-dim);font-size:.7rem;opacity:.4}
+
+/* ═══════ ACCORDION ═══════ */
+.accordion{margin-top:32px}
+.accordion-item{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;transition:border-color .3s}
+.accordion-item:hover{border-color:var(--border-glow)}
+.accordion-header{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .3s}
+.accordion-header:hover{background:var(--bg-card-hover)}
+.accordion-header h4{font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:12px}
+.accordion-icon{font-size:1.1rem;transition:transform .3s;color:var(--accent)}
+.accordion-item.open .accordion-icon{transform:rotate(45deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1),padding .3s}
+.accordion-item.open .accordion-body{max-height:400px;padding:0 24px 20px}
+.accordion-body p{color:var(--text-dim);font-size:.9rem;line-height:1.8}
+
+/* ═══════ PROJECT CARDS ═══════ */
+.projects-grid{display:grid;gap:16px}
+.project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:0;transition:opacity .3s}
+.project-card:hover{background:var(--bg-card-hover);border-color:var(--border-glow);transform:translateX(4px)}
+.project-card:hover::before{opacity:1}
+.project-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.project-name{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:600}
+.project-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:3px 10px;border-radius:12px;font-weight:500}
+.tag-active{background:#00ffc815;color:var(--accent);border:1px solid #00ffc830}
+.tag-research{background:#4da6ff15;color:var(--blue);border:1px solid #4da6ff30}
+.project-desc{color:var(--text-dim);font-size:.9rem;line-height:1.7;margin-bottom:16px}
+.project-tech{display:flex;gap:8px;flex-wrap:wrap}
+.tech{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-dim);background:#ffffff06;padding:3px 10px;border-radius:6px}
+
+.back-to-top{position:fixed;bottom:32px;right:32px;width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);color:var(--accent);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;transform:translateY(20px);transition:all .3s;pointer-events:none}
+.back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.back-to-top:hover{border-color:var(--accent);box-shadow:0 0 24px var(--accent-dim)}
+
+/* ═══════ FLOW DIAGRAM ═══════ */
+.flow-diagram{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;padding:32px 0}
+.flow-node{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;text-align:center;cursor:pointer;transition:all .4s;min-width:100px}
+.flow-node:hover,.flow-node.active{border-color:var(--accent);box-shadow:0 0 24px var(--accent-dim);transform:translateY(-4px)}
+.flow-node-gold{border-color:var(--amber) !important}
+.flow-node-gold:hover,.flow-node-gold.active{border-color:var(--amber) !important;box-shadow:0 0 24px rgba(255,179,71,.25) !important}
+.flow-icon{font-size:1.5rem;margin-bottom:4px}
+.flow-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;letter-spacing:1px}
+.flow-sub{font-size:.65rem;color:var(--text-dim);margin-top:2px}
+.flow-arrow{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:1.2rem;opacity:.4}
+.flow-arrow-down{color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:1.2rem;opacity:.4}
+
+/* Module detail panel */
+.module-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-top:24px;display:none;position:relative;animation:fadeUp .4s ease}
+.module-panel.open{display:block}
+.module-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer;transition:color .3s}
+.module-close:hover{color:var(--accent)}
+.module-name{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.module-role{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.module-desc{color:var(--text-dim);font-size:.95rem;line-height:1.9;margin-bottom:20px}
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.module-item{background:#ffffff04;border-radius:8px;padding:12px 16px}
+.module-item-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.module-item-value{font-size:.85rem;color:var(--text-dim)}
+
+/* Invariants */
+.invariants-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:32px}
+.invariant-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all .3s;cursor:default}
+.invariant-card:hover{border-color:var(--border-glow);transform:translateY(-2px)}
+.inv-icon{font-size:1.3rem;margin-bottom:8px}
+.inv-title{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:600;margin-bottom:6px}
+.inv-desc{font-size:.8rem;color:var(--text-dim);line-height:1.6}
+
+/* Doctrine quote */
+.doctrine-quote{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:40px;margin-top:32px;text-align:center}
+.dq-line{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;margin-bottom:8px;opacity:0;animation:fadeUp .5s ease forwards}
+.dq-line:nth-child(1){animation-delay:.1s}
+.dq-line:nth-child(2){animation-delay:.2s}
+.dq-line:nth-child(3){animation-delay:.3s}
+.dq-line:nth-child(4){animation-delay:.4s}
+.dq-line:nth-child(5){animation-delay:.5s}
+.dq-line span{color:var(--accent)}
+.dq-footer{font-size:.8rem;color:var(--text-dim);margin-top:16px;font-style:italic;opacity:0;animation:fadeUp .5s ease .7s forwards}
+
+@media(max-width:768px){
+    .flow-diagram{gap:4px}
+    .flow-node{min-width:70px;padding:10px 12px}
+    .flow-icon{font-size:1.1rem}
+    .flow-label{font-size:.6rem}
+    .flow-arrow,.flow-arrow-down{font-size:.9rem}
+    .module-grid{grid-template-columns:1fr}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);flex-direction:column;padding:20px 24px;gap:16px}
+    .nav-links.open{display:flex}
+    .menu-toggle{display:block}
+    .sipahi-hero{padding:24px}
+    .arch-layer{padding:20px}
+    .tabs{gap:2px}
+    .tab{padding:6px 12px;font-size:.6rem}
+}
+    </style>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<nav>
+    <a href="../index.html" class="logo">gzhno<span>_sec</span></a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+        <a href="../index.html">Ana Sayfa</a>
+        <a href="project.html" class="active">Projeler</a>
+        <a href="rust.html">Rust</a>
+        <a href="scenario.html">Senaryo</a>
+        <a href="about.html">Hakkımda</a>
+        <a href="contact.html">İletişim</a>
+    </div>
+</nav>
+<div class="container">
+
+    <!-- SIPAHI -->
+    <section class="fade-in">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 class="section-title">Sipahi Microkernel</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="sipahi-hero">
+            <div class="sipahi-name">Sipahi</div>
+            <div class="sipahi-subtitle">Capability-Based Real-Time Microkernel for RISC-V</div>
+            <p class="sipahi-desc">
+                Robotik ve endüstriyel kontrol sistemleri için sıfırdan tasarlanan,
+                safety-critical gereksinimlere uygun bir gerçek zamanlı işletim sistemi çekirdeği.
+                Güvenilmeyen kullanıcı kodunu WASM sandbox içinde izole ederken, çekirdek katmanında
+                sıfır heap tahsisi ve sıfır panic garantisi sunuyor.
+            </p>
+            <div class="sipahi-principles">
+                <span class="principle p-red">Heap Yok</span>
+                <span class="principle p-red">Panic Yok</span>
+                <span class="principle p-amber">Single Hart</span>
+                <span class="principle p-green">PMP İzolasyon</span>
+                <span class="principle p-blue">Formal Doğrulama</span>
+            </div>
+        </div>
+
+        <!-- 3D EXPLODED VIEW -->
+        <div style="position:relative;width:100%;height:600px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0">
+            <canvas id="explodedCanvas" style="width:100%;height:100%"></canvas>
+            <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:2">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text-dim);letter-spacing:1px">BİRLEŞİK</span>
+                <input type="range" id="explodeSlider" min="0" max="100" value="30" style="width:180px;accent-color:#00ffc8;cursor:pointer">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text-dim);letter-spacing:1px">AYRILMIŞ</span>
+            </div>
+            <div style="position:absolute;top:12px;right:16px;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--accent);opacity:.3;letter-spacing:2px">THREE.JS · MOUSE İLE DÖNDÜR</div>
+        </div>
+
+        <!-- INTERACTIVE TABS -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(0)">Tüm Katmanlar</button>
+            <button class="tab" onclick="switchTab(1)">Katman 3 — WASM</button>
+            <button class="tab" onclick="switchTab(2)">Katman 2 — IPC</button>
+            <button class="tab" onclick="switchTab(3)">Katman 1 — Çekirdek</button>
+            <button class="tab" onclick="switchTab(4)">Katman 0 — Donanım</button>
+        </div>
+
+        <!-- TAB: All Layers -->
+        <div class="tab-panel active" id="tabAll">
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Güvenli Bölge — Untrusted User Space</span>
+                    <span class="layer-id lid-3">KATMAN 3</span>
+                </div>
+                <p class="layer-desc">WASM sandbox içinde izole modüller: sensör, robot kontrol, telemetri.</p>
+                <div class="layer-features">
+                    <span class="layer-feat">wasmi Runtime</span><span class="layer-feat">No-Float</span><span class="layer-feat">Cycle Accounting</span>
+                </div>
+            </div>
+            <div class="arch-connector">▼</div>
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Sinir Sistemi — IPC & Transport</span>
+                    <span class="layer-id lid-2">KATMAN 2</span>
+                </div>
+                <p class="layer-desc">Lock-free SPSC ring buffer, zero-copy iletişim, blackbox recorder.</p>
+                <div class="layer-features">
+                    <span class="layer-feat">SPSC Ring Buffer</span><span class="layer-feat">Zero-Copy</span><span class="layer-feat">CRC32</span>
+                </div>
+            </div>
+            <div class="arch-connector">▼</div>
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Çelik Çekirdek — Safety Critical Core</span>
+                    <span class="layer-id lid-1">KATMAN 1</span>
+                </div>
+                <p class="layer-desc">Trap handler, preemptive RR scheduler, capability broker, static memory.</p>
+                <div class="layer-features">
+                    <span class="layer-feat">Trap Handler</span><span class="layer-feat">Scheduler</span><span class="layer-feat">Capability Broker</span>
+                </div>
+            </div>
+            <div class="arch-connector">▼</div>
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Donanım — Hardware Abstraction</span>
+                    <span class="layer-id lid-0">KATMAN 0</span>
+                </div>
+                <p class="layer-desc">RISC-V 64-bit, CLINT, PMP izolasyon, Watchdog Timer.</p>
+                <div class="layer-features">
+                    <span class="layer-feat">RISC-V 64</span><span class="layer-feat">PMP</span><span class="layer-feat">WDT</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Layer 3 Detail -->
+        <div class="tab-panel" id="tabL3">
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Güvenli Bölge — Untrusted User Space</span>
+                    <span class="layer-id lid-3">KATMAN 3</span>
+                </div>
+                <p class="layer-desc">
+                    Güvenilmeyen kullanıcı modülleri (sensör sürücüleri, robot kontrol mantığı,
+                    telemetri servisleri) her biri bağımsız bir WASM sandbox içinde çalışır.
+                    Her modül kendi wasmi runtime ortamında "kapalı hücre" olarak izole edilir.
+                    Kayan nokta işlemleri yasaklanarak determinizm sağlanır, cycle accounting ile
+                    her modülün işlemci bütçesi takip edilir. Modüller çekirdeğe yalnızca
+                    tanımlı sistem çağrıları (cap_invoke, ipc, yield) üzerinden erişebilir.
+                </p>
+                <div class="layer-features">
+                    <span class="layer-feat">wasmi Runtime</span><span class="layer-feat">No-Float Enforcement</span><span class="layer-feat">Cycle Accounting</span><span class="layer-feat">cap_invoke</span><span class="layer-feat">ipc</span><span class="layer-feat">yield</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Layer 2 Detail -->
+        <div class="tab-panel" id="tabL2">
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Sinir Sistemi — IPC & Transport</span>
+                    <span class="layer-id lid-2">KATMAN 2</span>
+                </div>
+                <p class="layer-desc">
+                    Modüller arası iletişim, kilit gerektirmeyen (lock-free) SPSC ring buffer'lar
+                    üzerinden sıfır kopyalı (zero-copy) olarak gerçekleşir. Bu tasarım hem
+                    gecikmeyi minimize eder hem de paylaşılan mutex'lerden kaynaklanan priority
+                    inversion sorununu tamamen ortadan kaldırır. Blackbox/Flight Recorder modülü,
+                    crash durumlarında bile veri kaybını önleyen kalıcı kayıt tutar — her kayıt
+                    magic byte, versiyon ve CRC32 checksum ile doğrulanır.
+                </p>
+                <div class="layer-features">
+                    <span class="layer-feat">SPSC Ring Buffer</span><span class="layer-feat">Lock-Free</span><span class="layer-feat">Zero-Copy</span><span class="layer-feat">Blackbox Recorder</span><span class="layer-feat">CRC32 Integrity</span><span class="layer-feat">Crash-Safe</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Layer 1 Detail -->
+        <div class="tab-panel" id="tabL1">
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Çelik Çekirdek — Safety Critical Core</span>
+                    <span class="layer-id lid-1">KATMAN 1</span>
+                </div>
+                <p class="layer-desc">
+                    Trusted Computing Base (TCB). Timer tick ile tetiklenen trap handler,
+                    kesmeleri yakalar ve syscall dispatch'e yönlendirir. Preemptive round-robin
+                    scheduler, rdcycle donanım sayacı ile her görevin işlemci bütçesini kontrol eder.
+                    Capability Broker, her kaynak erişimini token bazlı yetki denetiminden geçirir.
+                    Bellek yönetimi tamamen statik: heap tahsisi yok, sabit bölge paylaşımı ve
+                    stack guard page'ler ile taşma koruması. Failure Policy Table, hata senaryolarında
+                    RESTART veya SAFE_MODE politikalarını uygular.
+                </p>
+                <div class="layer-features">
+                    <span class="layer-feat">Trap Handler</span><span class="layer-feat">Preemptive RR</span><span class="layer-feat">rdcycle Budget</span><span class="layer-feat">Capability Broker</span><span class="layer-feat">Static Memory</span><span class="layer-feat">Stack Guard</span><span class="layer-feat">Failure Policy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Layer 0 Detail -->
+        <div class="tab-panel" id="tabL0">
+            <div class="arch-layer">
+                <div class="layer-header">
+                    <span class="layer-name">Donanım — Hardware Abstraction</span>
+                    <span class="layer-id lid-0">KATMAN 0</span>
+                </div>
+                <p class="layer-desc">
+                    RISC-V 64-bit işlemci üzerinde CLINT (Core Local Interruptor) timer kesmeleri,
+                    PMP (Physical Memory Protection) ile donanım seviyesinde bellek izolasyonu
+                    ve WDT (Watchdog Timer) ile sistem sağlığı izleme. Tüm üst katmanlar
+                    bu donanım güvenlik mekanizmalarına dayanır.
+                </p>
+                <div class="layer-features">
+                    <span class="layer-feat">RISC-V 64</span><span class="layer-feat">CLINT Timer</span><span class="layer-feat">PMP Isolation</span><span class="layer-feat">Watchdog Timer</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCORDION: Formal Verification -->
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4>🛡️ Kani — Panic Freedom İspatı</h4>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                    <p>Kani model checker ile çekirdekteki her kod yolunun panic veya undefined behavior üretmediği matematiksel olarak ispatlanır. Rust'ın tip sistemi üzerine ek bir güvenlik katmanı sağlar. Her fonksiyon için harness yazılır ve tüm olası girdi uzayı exhaustive olarak taranır.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4>📐 Lean 4 — Capability Teorem İspatı</h4>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                    <p>Lean 4 teorem ispatlayıcısı ile "sadece geçerli capability token'ına sahip olan modül kaynaklara erişebilir" özelliği formal olarak kanıtlanır. Bu, runtime kontrollerinin ötesinde tasarım düzeyinde güvenlik garantisi sağlar.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4>🔒 WASM Sandbox İzolasyonu</h4>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                    <p>Güvenilmeyen kullanıcı kodu WASM bytecode'a derlenir ve wasmi interpreter içinde çalıştırılır. Her modül kendi bellek alanında izole edilir. Hatalı bir modül çökse bile çekirdek ve diğer modüller etkilenmez. Sistem çağrıları capability token'ları ile kontrol edilir.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4>⚡ Deterministic IPC</h4>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                    <p>Lock-free SPSC ring buffer ile modüller arası iletişim sabit zamanda tamamlanır. Priority inversion yok, mutex yok, tahmin edilebilir gecikme garantisi. Blackbox recorder crash durumlarında bile veri kaybını CRC32 ile korur.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- D3 FORCE GRAPH -->
+    <section class="fade-in">
+        <div class="section-header">
+            <span class="section-number">01.5</span>
+            <h2 class="section-title">Sipahi Modül Bağımlılık Grafiği</h2>
+            <div class="section-line"></div>
+        </div>
+        <div style="position:relative;width:100%;height:500px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+            <svg id="d3Graph" style="width:100%;height:100%"></svg>
+            <div style="position:absolute;top:12px;left:16px;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--accent);opacity:.3;letter-spacing:2px">D3.JS FORCE SIMULATION · SÜRÜKLE</div>
+            <div style="position:absolute;bottom:12px;left:16px;display:flex;gap:16px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#ff4d6a;display:inline-block"></span><span style="color:var(--text-dim)">Donanım</span></span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#00ffc8;display:inline-block"></span><span style="color:var(--text-dim)">Çekirdek</span></span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#4da6ff;display:inline-block"></span><span style="color:var(--text-dim)">IPC</span></span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#ff6b35;display:inline-block"></span><span style="color:var(--text-dim)">WASM</span></span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#a78bfa;display:inline-block"></span><span style="color:var(--text-dim)">Formal</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CYBER STACK -->
+    <section class="fade-in">
+        <div class="section-header">
+            <span class="section-number">02</span>
+            <h2 class="section-title">Sipahi National Cyber Stack</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="sipahi-hero">
+            <div class="sipahi-name">SİPAHİ-CORE</div>
+            <div class="sipahi-subtitle">National Cyber Stack — 5 Katmanlı Siber Savunma Mimarisi</div>
+            <p class="sipahi-desc">
+                Sipahi çekirdeği üzerine inşa edilen sovereign siber savunma doktrini.
+                Erken algılamadan kontrollü karşı baskıya, her katman aynı deterministik
+                çekirdek fiziğine tabi. Sessiz aksiyon yok, inkâr edilemez kanıt zinciri var.
+            </p>
+            <div class="sipahi-principles">
+                <span class="principle p-red">Fail-Closed</span>
+                <span class="principle p-amber">Evidence-First</span>
+                <span class="principle p-green">Non-Panic</span>
+                <span class="principle p-blue">No Silent Action</span>
+            </div>
+        </div>
+
+        <!-- INTERACTIVE FLOW DIAGRAM -->
+        <div class="flow-diagram">
+            <div class="flow-node" onclick="showModule('prelude')" id="fn-prelude">
+                <div class="flow-icon">👁️</div>
+                <div class="flow-label">PRELUDE</div>
+                <div class="flow-sub">Erken Algılama</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" onclick="showModule('oracle')" id="fn-oracle">
+                <div class="flow-icon">🧠</div>
+                <div class="flow-label">ORACLE</div>
+                <div class="flow-sub">Kampanya Analizi</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" onclick="showModule('mantis')" id="fn-mantis">
+                <div class="flow-icon">🛡️</div>
+                <div class="flow-label">MANTIS</div>
+                <div class="flow-sub">Savunma</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" onclick="showModule('ares')" id="fn-ares">
+                <div class="flow-icon">⚔️</div>
+                <div class="flow-label">ARES</div>
+                <div class="flow-sub">Karşı Baskı</div>
+            </div>
+            <div class="flow-arrow-down">↘</div>
+            <div class="flow-node flow-node-gold" onclick="showModule('obsidian')" id="fn-obsidian">
+                <div class="flow-icon">💎</div>
+                <div class="flow-label">OBSIDIAN</div>
+                <div class="flow-sub">Gerçeğin Omurgası</div>
+            </div>
+        </div>
+        <p style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-dim);margin-top:12px">↑ Modüllere tıklayarak detayları gör</p>
+
+        <!-- MODULE DETAIL PANEL -->
+        <div class="module-panel" id="modulePanel">
+            <div class="module-close" onclick="closeModule()">✕</div>
+            <div id="moduleContent"></div>
+        </div>
+
+        <!-- INVARIANTS -->
+        <div class="invariants-grid">
+            <div class="invariant-card">
+                <div class="inv-icon">🔒</div>
+                <div class="inv-title">Determinism</div>
+                <div class="inv-desc">Aynı giriş → aynı çıktı. Wall-clock yok, monotonic tick var.</div>
+            </div>
+            <div class="invariant-card">
+                <div class="inv-icon">📜</div>
+                <div class="inv-title">Evidence-First</div>
+                <div class="inv-desc">Karar = kanıt + policy. Receipt'siz aksiyon yok.</div>
+            </div>
+            <div class="invariant-card">
+                <div class="inv-icon">🔗</div>
+                <div class="inv-title">Capability-Based</div>
+                <div class="inv-desc">Tokenized, süreli, devir edilebilir ama izlenebilir yetkiler.</div>
+            </div>
+            <div class="invariant-card">
+                <div class="inv-icon">⏪</div>
+                <div class="inv-title">Replay-Safe</div>
+                <div class="inv-desc">Aynı kaset → aynı sonuç. Alternatif policy ile simülasyon.</div>
+            </div>
+        </div>
+
+        <!-- DOCTRINE QUOTE -->
+        <div class="doctrine-quote">
+            <div class="dq-line">PRELUDE <span>görür.</span></div>
+            <div class="dq-line">ORACLE <span>anlar.</span></div>
+            <div class="dq-line">MANTIS <span>ayakta tutar.</span></div>
+            <div class="dq-line">ARES <span>sınırlar.</span></div>
+            <div class="dq-line">OBSIDIAN <span>gerçeği kilitler.</span></div>
+            <div class="dq-footer">Hepsi aynı çekirdeğin fiziğine tabidir.</div>
+        </div>
+    </section>
+
+    <!-- OTHER PROJECTS -->
+    <section class="fade-in">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 class="section-title">Diğer Projeler</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-top">
+                    <span class="project-name">Jupiter Lend Audit</span>
+                    <span class="project-tag tag-active">Tamamlandı</span>
+                </div>
+                <p class="project-desc">Code4rena yarışmasında Solana tabanlı lending protokolünün güvenlik denetimi. Protokolün oracle mekanizması ve vault yönetim mantığı üzerinde bulgular raporlandı.</p>
+                <div class="project-tech"><span class="tech">Solana</span><span class="tech">Rust</span><span class="tech">DeFi</span><span class="tech">Code4rena</span></div>
+            </div>
+            <div class="project-card">
+                <div class="project-top">
+                    <span class="project-name">Warlord DeFi Toolkit</span>
+                    <span class="project-tag tag-research">Araştırma</span>
+                </div>
+                <p class="project-desc">Constant Product Formula (x·y=k) tabanlı likidite havuzu implementasyonu. Property-based testing ile doğrulanmış, cebirsel ispat ile fee invariant kanıtlanmış.</p>
+                <div class="project-tech"><span class="tech">Rust</span><span class="tech">rust_decimal</span><span class="tech">proptest</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer><p>gzhno © 2026 — built with purpose</p></footer>
+</div>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Scroll progress
+window.addEventListener('scroll',()=>{
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    document.getElementById('scrollProgress').style.width=(window.scrollY/h*100)+'%';
+    document.getElementById('backToTop').classList.toggle('visible',window.scrollY>400);
+});
+
+// Tabs
+const panels=[document.getElementById('tabAll'),document.getElementById('tabL3'),document.getElementById('tabL2'),document.getElementById('tabL1'),document.getElementById('tabL0')];
+function switchTab(i){
+    document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));
+    panels.forEach((p,j)=>p.classList.toggle('active',j===i));
+}
+
+// Accordion
+function toggleAccordion(header){
+    const item=header.parentElement;
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.05});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// Module data
+const modules={
+    prelude:{
+        name:'PRELUDE',role:'Early Sensing Layer — Erken Algılama Katmanı',
+        desc:'Saldırıyı başlamadan önce hissetmek. Alarm üretmek değil, anormallik sinyali üretmek. ML bağımlılığı yok — gürültü yerine desen tabanlı algılama. Attribution yapmaz, "Bu saldırıdır" demez, aksiyon almaz.',
+        items:[
+            {label:'Girdiler',value:'Network telemetry, sistem davranış özetleri, zaman serisi sapmaları, coğrafi dağılım'},
+            {label:'Çıktılar',value:'PRELUDE_SIGNAL event, sinyal tipi (motif), güven seviyesi (taint grade)'},
+            {label:'Yapmaz',value:'Attribution, kesin yargı, aksiyon'},
+            {label:'Fark',value:'ML bağımlılığı yok, her sinyal Obsidian\'a bağlanır'}
+        ]
+    },
+    oracle:{
+        name:'ORACLE',role:'Intent & Campaign Reasoning Layer — Niyet & Kampanya Aklı',
+        desc:'Tekil olayları kampanya resmine dönüştürmek. "Bu neye gidiyor?" sorusuna cevap vermek. Zaman-kenarlı grafik ve deterministik heuristikler kullanır. Kesinlik iddiası değil, olasılık aralığı sunar.',
+        items:[
+            {label:'Girdiler',value:'Prelude sinyalleri, tarihsel olay grafı, politika bağlamı, taint bilgisi'},
+            {label:'İç Model',value:'Temporal graph, deterministik heuristikler, belirsizlik bandı'},
+            {label:'Çıktılar',value:'ORACLE_ASSESSMENT — kampanya türü, yön vektörü, belirsizlik bandı'},
+            {label:'Yapmaz',value:'Misilleme önermez, tek başına karar vermez'}
+        ]
+    },
+    mantis:{
+        name:'MANTIS',role:'Defensive Continuity & Policy Enforcement Layer — Savunma Katmanı',
+        desc:'Sistemi çökmeyecek şekilde savunmak. Saldırganı yavaşlatmak, meşruyu yakmamak. Her aksiyon receipt üretir, rollback tanımlı, süreli ve geri alınabilir.',
+        items:[
+            {label:'Policy',value:'IF context AND capability THEN consequence'},
+            {label:'Kademeler',value:'allow → limit → delay → degrade → deny (en son)'},
+            {label:'Güvence',value:'Her aksiyon receipt üretir, rollback tanımlı'},
+            {label:'Yapmaz',value:'Kör bloklama, kalıcı hasar, sessiz aksiyon'}
+        ]
+    },
+    ares:{
+        name:'ARES',role:'Controlled Counter-Pressure Layer — Kontrollü Karşı Baskı',
+        desc:'Caydırıcılık, tempo kırma, baskıyı pahalılaştırma. Otomatik DEĞİL — çoklu onay (M-of-N), zaman kilitli. Etki geri alınabilir, ölçülebilir ve kademeli.',
+        items:[
+            {label:'Yetki',value:'M-of-N çoklu onay, zaman kilitli, otomatik değil'},
+            {label:'Etki',value:'Geri alınabilir, ölçülebilir, kademeli'},
+            {label:'Çitler',value:'Obsidian\'a zorunlu kayıt, etki sınırı, otomatik durdurma'},
+            {label:'Yapmaz',value:'Yıkım, kontrolsüz saldırı, inkâr edilebilir aksiyon'}
+        ]
+    },
+    obsidian:{
+        name:'OBSIDIAN',role:'Evidence, Truth & Replay Layer — Gerçeğin Omurgası',
+        desc:'Olan biteni inkâr edilemez hâle getirmek. Zamanı geri oynatabilmek. SIEM değil, forensic sonrası değil — gerçek zamanlı hakikat. Append-only, content-addressed, deterministic serialization.',
+        items:[
+            {label:'Kanıt Yapıları',value:'Seal (log inclusion proof), Receipt (neden/sonuç), Taint (kanıt kalitesi), Veil (crypto-redaction)'},
+            {label:'Replay',value:'Aynı kaset → aynı sonuç, alternatif policy ile simülasyon'},
+            {label:'Dossier',value:'Teknik, denetim ve yürütme (executive) raporları'},
+            {label:'Fark',value:'SIEM değil — gerçek zamanlı, append-only hakikat katmanı'}
+        ]
+    }
+};
+
+function showModule(key){
+    const m=modules[key];
+    const panel=document.getElementById('modulePanel');
+    const content=document.getElementById('moduleContent');
+    document.querySelectorAll('.flow-node').forEach(n=>n.classList.remove('active'));
+    document.getElementById('fn-'+key).classList.add('active');
+    let itemsHtml=m.items.map(i=>`<div class="module-item"><div class="module-item-label">${i.label}</div><div class="module-item-value">${i.value}</div></div>`).join('');
+    content.innerHTML=`<div class="module-name">${m.name}</div><div class="module-role">${m.role}</div><p class="module-desc">${m.desc}</p><div class="module-grid">${itemsHtml}</div>`;
+    panel.classList.add('open');
+    panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeModule(){
+    document.getElementById('modulePanel').classList.remove('open');
+    document.querySelectorAll('.flow-node').forEach(n=>n.classList.remove('active'));
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ═══════ 3D EXPLODED SIPAHI ARCHITECTURE ═══════ */
+(function(){
+const canvas=document.getElementById('explodedCanvas');
+if(!canvas)return;
+const R=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.setClearColor(0x000000,0);
+const S=new THREE.Scene();
+S.fog=new THREE.FogExp2(0x0a0a0f,0.04);
+const cam=new THREE.PerspectiveCamera(50,1,0.1,100);
+cam.position.set(0,2,14);
+cam.lookAt(0,0,0);
+
+function resize(){
+    const r=canvas.parentElement.getBoundingClientRect();
+    R.setSize(r.width,r.height);
+    cam.aspect=r.width/r.height;
+    cam.updateProjectionMatrix();
+}
+addEventListener('resize',resize);resize();
+
+const group=new THREE.Group();
+
+// Layer materials
+const mats=[
+    new THREE.MeshPhysicalMaterial({color:0xff6b35,metalness:.7,roughness:.2,transparent:true,opacity:.35,emissive:0x331500,emissiveIntensity:.2,clearcoat:.5}),
+    new THREE.MeshPhysicalMaterial({color:0x00ffc8,metalness:.8,roughness:.15,transparent:true,opacity:.3,emissive:0x003322,emissiveIntensity:.3,clearcoat:.8}),
+    new THREE.MeshPhysicalMaterial({color:0x4da6ff,metalness:.75,roughness:.2,transparent:true,opacity:.3,emissive:0x112244,emissiveIntensity:.2,clearcoat:.6}),
+    new THREE.MeshPhysicalMaterial({color:0xff4d6a,metalness:.9,roughness:.1,transparent:true,opacity:.25,emissive:0x220011,emissiveIntensity:.15,clearcoat:.9}),
+];
+const wireMats=[
+    new THREE.MeshBasicMaterial({color:0xff6b35,wireframe:true,transparent:true,opacity:.08}),
+    new THREE.MeshBasicMaterial({color:0x00ffc8,wireframe:true,transparent:true,opacity:.08}),
+    new THREE.MeshBasicMaterial({color:0x4da6ff,wireframe:true,transparent:true,opacity:.08}),
+    new THREE.MeshBasicMaterial({color:0xff4d6a,wireframe:true,transparent:true,opacity:.06}),
+];
+
+// Katman 0 - Donanım (outermost - icosahedron)
+const l0=new THREE.Mesh(new THREE.IcosahedronGeometry(3,1),mats[3]);
+const l0w=new THREE.Mesh(new THREE.IcosahedronGeometry(3.02,1),wireMats[3]);
+const g0=new THREE.Group();g0.add(l0);g0.add(l0w);
+g0.userData={baseY:0,label:'Donanım'};
+group.add(g0);
+
+// Katman 1 - Çekirdek (octahedron)
+const l1=new THREE.Mesh(new THREE.OctahedronGeometry(1.8,0),mats[1]);
+const l1w=new THREE.Mesh(new THREE.OctahedronGeometry(1.82,0),wireMats[1]);
+const g1=new THREE.Group();g1.add(l1);g1.add(l1w);
+g1.userData={baseY:0,label:'Çekirdek'};
+group.add(g1);
+
+// Katman 2 - IPC (torus)
+const l2=new THREE.Mesh(new THREE.TorusGeometry(2.2,.08,16,80),mats[2]);
+const l2b=new THREE.Mesh(new THREE.TorusGeometry(2.4,.04,16,80),mats[2].clone());
+l2b.material.opacity=.15;
+const g2=new THREE.Group();g2.add(l2);g2.add(l2b);
+l2.rotation.x=Math.PI/2;l2b.rotation.x=Math.PI/2;
+g2.userData={baseY:0,label:'IPC'};
+group.add(g2);
+
+// Katman 3 - WASM (dodecahedron outer shell)
+const l3=new THREE.Mesh(new THREE.DodecahedronGeometry(2.6,0),mats[0]);
+const l3w=new THREE.Mesh(new THREE.DodecahedronGeometry(2.62,0),wireMats[0]);
+const g3=new THREE.Group();g3.add(l3);g3.add(l3w);
+g3.userData={baseY:0,label:'WASM'};
+group.add(g3);
+
+// Labels as sprites
+function makeLabel(text,color){
+    const c=document.createElement('canvas');c.width=256;c.height=64;
+    const ctx=c.getContext('2d');
+    ctx.font='bold 22px Outfit, sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillStyle=`#${color.toString(16).padStart(6,'0')}`;
+    ctx.fillText(text,128,32);
+    const tex=new THREE.CanvasTexture(c);
+    const mat=new THREE.SpriteMaterial({map:tex,transparent:true,opacity:.8,depthWrite:false});
+    const spr=new THREE.Sprite(mat);
+    spr.scale.set(2.5,.6,1);
+    return spr;
+}
+const labels=[
+    makeLabel('KATMAN 0 · Donanım',0xff4d6a),
+    makeLabel('KATMAN 1 · Çekirdek',0x00ffc8),
+    makeLabel('KATMAN 2 · IPC',0x4da6ff),
+    makeLabel('KATMAN 3 · WASM',0xff6b35),
+];
+labels.forEach(l=>group.add(l));
+
+S.add(group);
+
+// Lights
+S.add(new THREE.AmbientLight(0x0a1a2a,.5));
+const dl=new THREE.DirectionalLight(0x00ffc8,.8);dl.position.set(5,5,5);S.add(dl);
+const dl2=new THREE.DirectionalLight(0x4da6ff,.3);dl2.position.set(-5,-3,2);S.add(dl2);
+const pl=new THREE.PointLight(0xff6b35,.4,15);pl.position.set(0,0,4);S.add(pl);
+
+// Explode slider
+let explode=.3;
+const slider=document.getElementById('explodeSlider');
+if(slider)slider.addEventListener('input',e=>{explode=e.target.value/100});
+
+// Mouse rotate
+let mX=0,mY=0,dragging=false,rvx=0,rvy=0;
+canvas.addEventListener('mousedown',()=>dragging=true);
+addEventListener('mouseup',()=>dragging=false);
+addEventListener('mousemove',e=>{
+    if(dragging){rvy+=(e.movementX||0)*.004;rvx+=(e.movementY||0)*.004}
+});
+
+const clk=new THREE.Clock();
+function anim(){
+    requestAnimationFrame(anim);
+    const t=clk.getElapsedTime();
+
+    // Explode layers vertically
+    const spread=explode*3;
+    g0.position.y=-spread*1.2;
+    g1.position.y=-spread*.4;
+    g2.position.y=spread*.4;
+    g3.position.y=spread*1.2;
+
+    labels[0].position.set(4.5,-spread*1.2,0);
+    labels[1].position.set(4.5,-spread*.4,0);
+    labels[2].position.set(4.5,spread*.4,0);
+    labels[3].position.set(4.5,spread*1.2,0);
+    labels.forEach(l=>{l.material.opacity=Math.min(1,explode*3)});
+
+    // Rotation
+    if(!dragging){
+        rvx*=.95;rvy*=.95;
+        group.rotation.y+=.005+rvy;
+        group.rotation.x+=rvx;
+    }else{
+        group.rotation.y+=rvy;
+        group.rotation.x+=rvx;
+        rvx*=.92;rvy*=.92;
+    }
+
+    // Subtle layer rotations
+    g2.rotation.y=t*.2;
+    l1.rotation.y=t*.1;
+    l3.rotation.y=-t*.05;
+
+    // Core pulse
+    const pulse=1+Math.sin(t*2)*.02;
+    g1.scale.setScalar(pulse);
+
+    R.render(S,cam);
+}
+anim();
+
+const eObs=new IntersectionObserver(e=>{if(e[0].isIntersecting)resize()},{threshold:.1});
+eObs.observe(canvas.parentElement);
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+/* ═══════ D3.JS FORCE-DIRECTED GRAPH ═══════ */
+(function(){
+const svg=d3.select('#d3Graph');
+if(svg.empty())return;
+const container=svg.node().parentElement;
+let W=container.clientWidth,H=container.clientHeight;
+svg.attr('viewBox',`0 0 ${W} ${H}`);
+
+const nodes=[
+    {id:'Sipahi Core',group:'core',r:28},
+    {id:'Trap Handler',group:'core',r:18},{id:'Scheduler',group:'core',r:18},{id:'Capability Broker',group:'core',r:20},
+    {id:'PMP',group:'hw',r:16},{id:'CLINT',group:'hw',r:14},{id:'WDT',group:'hw',r:13},{id:'RISC-V Hart',group:'hw',r:16},
+    {id:'SPSC Ring',group:'ipc',r:16},{id:'Blackbox',group:'ipc',r:14},{id:'IPC Channel',group:'ipc',r:15},
+    {id:'WASM Sandbox',group:'wasm',r:18},{id:'wasmi Runtime',group:'wasm',r:15},{id:'Cycle Account',group:'wasm',r:13},{id:'Sensor Module',group:'wasm',r:12},{id:'Robot Ctrl',group:'wasm',r:12},
+    {id:'Kani',group:'formal',r:14},{id:'Lean 4',group:'formal',r:13},{id:'Miri',group:'formal',r:12},
+];
+
+const links=[
+    {source:'Sipahi Core',target:'Trap Handler'},{source:'Sipahi Core',target:'Scheduler'},{source:'Sipahi Core',target:'Capability Broker'},
+    {source:'Trap Handler',target:'PMP'},{source:'Trap Handler',target:'CLINT'},{source:'Scheduler',target:'RISC-V Hart'},
+    {source:'PMP',target:'RISC-V Hart'},{source:'CLINT',target:'RISC-V Hart'},{source:'WDT',target:'RISC-V Hart'},
+    {source:'Capability Broker',target:'IPC Channel'},{source:'IPC Channel',target:'SPSC Ring'},{source:'IPC Channel',target:'Blackbox'},
+    {source:'SPSC Ring',target:'WASM Sandbox'},{source:'WASM Sandbox',target:'wasmi Runtime'},{source:'WASM Sandbox',target:'Cycle Account'},
+    {source:'wasmi Runtime',target:'Sensor Module'},{source:'wasmi Runtime',target:'Robot Ctrl'},
+    {source:'Kani',target:'Sipahi Core'},{source:'Kani',target:'Trap Handler'},{source:'Miri',target:'Sipahi Core'},
+    {source:'Lean 4',target:'Capability Broker'},{source:'Lean 4',target:'Scheduler'},
+];
+
+const colors={core:'#00ffc8',hw:'#ff4d6a',ipc:'#4da6ff',wasm:'#ff6b35',formal:'#a78bfa'};
+
+const sim=d3.forceSimulation(nodes)
+    .force('link',d3.forceLink(links).id(d=>d.id).distance(80).strength(.4))
+    .force('charge',d3.forceManyBody().strength(-200))
+    .force('center',d3.forceCenter(W/2,H/2))
+    .force('collision',d3.forceCollide().radius(d=>d.r+8));
+
+// Links
+const link=svg.append('g')
+    .selectAll('line').data(links).join('line')
+    .attr('stroke','rgba(255,255,255,.06)')
+    .attr('stroke-width',1);
+
+// Glow filter
+svg.append('defs').append('filter').attr('id','glow')
+    .append('feGaussianBlur').attr('stdDeviation','3').attr('result','blur');
+
+// Node groups
+const node=svg.append('g')
+    .selectAll('g').data(nodes).join('g')
+    .call(d3.drag()
+        .on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
+        .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y})
+        .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
+
+// Node circles
+node.append('circle')
+    .attr('r',d=>d.r)
+    .attr('fill',d=>colors[d.group]+'15')
+    .attr('stroke',d=>colors[d.group])
+    .attr('stroke-width',1.5)
+    .attr('filter','url(#glow)')
+    .style('cursor','grab');
+
+// Node labels
+node.append('text')
+    .text(d=>d.id)
+    .attr('text-anchor','middle')
+    .attr('dy',d=>d.r+14)
+    .attr('fill',d=>colors[d.group])
+    .attr('font-family','JetBrains Mono, monospace')
+    .attr('font-size','9px')
+    .attr('opacity',.7);
+
+// Pulse animation on core
+node.filter(d=>d.id==='Sipahi Core').select('circle')
+    .attr('fill',colors.core+'25')
+    .attr('stroke-width',2.5);
+
+sim.on('tick',()=>{
+    link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+        .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    node.attr('transform',d=>`translate(${d.x},${d.y})`);
+});
+
+// Resize
+new ResizeObserver(()=>{
+    W=container.clientWidth;H=container.clientHeight;
+    svg.attr('viewBox',`0 0 ${W} ${H}`);
+    sim.force('center',d3.forceCenter(W/2,H/2));
+    sim.alpha(.5).restart();
+}).observe(container);
+})();
+</script>
+<script src="../assests/js/senior.js"></script>
+</body>
+</html>
