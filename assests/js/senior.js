@@ -20,6 +20,7 @@ const commands = [
     {name:'Rust', desc:'Ferris, Ownership, Dil Karşılaştırması', keys:'rust, ferris, ownership, cargo, crab', url: pageBase+'rust.html', icon:'🦀'},
     {name:'Senaryo', desc:'Hava Savunma Simülasyonu, Rust vs C++', keys:'senaryo, scenario, hava, savunma, füze, missile, defense', url: pageBase+'scenario.html', icon:'🎯'},
     {name:'Hakkımda', desc:'Yetenekler, Timeline, Araçlar', keys:'hakkımda, about, skill, yetenek, timeline', url: pageBase+'about.html', icon:'👤'},
+    {name:'Kitaplık', desc:'73M+ kelime, 35 Web Novel, Fiziksel Kitaplar', keys:'kitaplık, kitap, book, novel, mech touch, cultivation, okuma', url: pageBase+'books.html', icon:'📚'},
     {name:'İletişim', desc:'Form, GitHub, Code4rena, Immunefi', keys:'iletişim, contact, mail, github, form', url: pageBase+'contact.html', icon:'✉️'},
     {name:'GitHub', desc:'github.com/gzhno', keys:'github, git, repo', url:'https://github.com/gzhno', icon:'⌥', external:true},
     {name:'Code4rena', desc:'@Krul_Tepes', keys:'code4rena, c4, krul, audit', url:'https://code4rena.com/@Krul_Tepes', icon:'🛡️', external:true},
