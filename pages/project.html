@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler | L3xan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="about.html">Hakkımda</a></li>
+                <li><a href="project.html">Projeler</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
 
+            <button class="nav-menu-btn" aria-label="Menü">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-nav">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="about.html">Hakkımda</a>
+            <a href="project.html">Projeler</a>
+            <a href="contact.html">İletişim</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Çalışmalarım</h2>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="animate">Adobe Animate</button>
+            <button class="filter-btn" data-filter="canva">Canva Tasarımları</button>
+            <button class="filter-btn" data-filter="video">Videolar</button>
+        </div>
+
+        <div class="project-grid">
+            <div class="project-card glass animate" data-category="animate">
+                <div class="project-img animate-bg"></div>
+                <div class="project-info">
+                    <h3>Karakter Animasyonu</h3>
+                    <p>Adobe Animate ile hazırlanmış 2D karakter yürüme döngüsü animasyonu.</p>
+                </div>
+            </div>
+
+            <div class="project-card glass canva" data-category="canva">
+                <div class="project-img canva-bg"></div>
+                <div class="project-info">
+                    <h3>Espor Turnuva Afişi</h3>
+                    <p>Canva'da tasarlanmış detaylı turnuva duyuru posteri.</p>
+                </div>
+            </div>
+
+            <div class="project-card glass canva" data-category="canva">
+                <div class="project-img logo-bg"></div>
+                <div class="project-info">
+                    <h3>Marka Logosu</h3>
+                    <p>Modern minimalist vektörel logo tasarımı.</p>
+                </div>
+            </div>
+
+            <div class="project-card glass video" data-category="video">
+                <div class="project-img video-bg"></div>
+                <div class="project-info">
+                    <h3>Tanıtım Jeneriği</h3>
+                    <p>Canva video editörü kullanılarak hazırlanan kısa introm.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 L3xan. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
