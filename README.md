@@ -30,5 +30,8 @@ Bu ödevde bazı teknik özelliklerin mutlaka kullanılması gerekmektedir. Form
 Her hafta aşağıdaki forma rapor oluşturmalısınız
 https://docs.google.com/forms/d/e/1FAIpQLSd_se_8hnsDZBhI5-ZsBk0t7NyDASsf4xnW3hzOH-ecFBQ3CA/viewform
 
+4 Mayıs görevleri
+bu hafta kapsamında sizlerden projelerinize hem veriyle çalışma hem de veri saklama mantığını birlikte entegre etmeniz beklenmektedir. Bu doğrultuda, öncelikle JSON formatında oluşturulmuş sabit bir veri dosyasından (örneğin ürün ya da hizmet verileri) verileri okuyarak JavaScript ile bu verileri dinamik biçimde ekrana kart yapısında listelemeniz gerekmektedir. Ardından, kullanıcı etkileşimini projeye dahil ederek listelenen bu öğeler üzerinde “favorilere ekle”, “sepete ekle” ya da benzeri bir işlem kurgulamanız ve bu etkileşimleri localStorage kullanarak tarayıcıda saklamanız beklenmektedir. Böylece projenizde hem dış veri ile çalışma hem de kullanıcıya ait veriyi kalıcı olarak saklama mantığını birlikte uygulamanız amaçlanmaktadır.
 
-
+Her hafta aşağıdaki forma rapor oluşturmalısınız
+https://docs.google.com/forms/d/e/1FAIpQLSd_se_8hnsDZBhI5-ZsBk0t7NyDASsf4xnW3hzOH-ecFBQ3CA/viewform
