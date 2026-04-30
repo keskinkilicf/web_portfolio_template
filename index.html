@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Donanım Marketi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<header>
+    <div class="logo">Donanım Marketi</div>
+    <div class="header-right">
+        <div class="user-info" id="user-info">
+            <span id="login-btn" onclick="showLogin()">Giriş Yap</span> | 
+            <span id="register-btn" onclick="showRegister()">Kayıt Ol</span>
+        </div>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 Sepet (<span id="cart-count">0</span>)
+        </div>
+    </div>
+</header>
+
+<section class="search-section">
+    <select id="category-select">
+        <option value="all">Tüm Kategoriler</option>
+        <option value="gpu">Ekran Kartı</option>
+        <option value="cpu">İşlemci</option>
+        <option value="ram">RAM</option>
+        <option value="ssd">SSD</option>
+    </select>
+    <input type="text" id="search-input" placeholder="Ürün ara...">
+</section>
+
+<section class="hero">
+    <h1>Bilgisayar Donanım Ürünleri</h1>
+</section>
+
+<section class="products">
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
